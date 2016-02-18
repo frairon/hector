@@ -3,11 +3,12 @@ package dt
 import (
 	"bufio"
 	"fmt"
-	"github.com/xlvector/hector/core"
 	"log"
 	"os"
 	"strconv"
 	"sync"
+
+	"github.com/xlvector/hector/core"
 )
 
 type RandomForestParams struct {
@@ -22,18 +23,25 @@ type RandomForest struct {
 	continuous_features bool
 }
 
-func (self *RandomForest) SaveModel(path string) {
-	file, _ := os.Create(path)
+func (self *RandomForest) SaveModel(path string) error {
+	file, err := os.Create(path)
+	if err != nil {
+		return fmt.Errorf("Error saving model: %v", err)
+	}
 	defer file.Close()
 	for _, tree := range self.trees {
 		buf := tree.ToString()
 		file.Write(buf)
 		file.WriteString("\n#\n")
 	}
+	return nil
 }
 
-func (self *RandomForest) LoadModel(path string) {
-	file, _ := os.Open(path)
+func (self *RandomForest) LoadModel(path string) error {
+	file, err := os.Open(path)
+	if err != nil {
+		return fmt.Errorf("Error loading model: %v", err)
+	}
 	defer file.Close()
 
 	self.trees = []*Tree{}
@@ -51,6 +59,7 @@ func (self *RandomForest) LoadModel(path string) {
 		}
 	}
 	log.Println("rf tree count :", len(self.trees))
+	return nil
 }
 
 func (dt *RandomForest) Init(params map[string]string) {

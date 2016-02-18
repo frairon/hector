@@ -15,8 +15,8 @@ type Classifier interface {
 	//Predict the probability of a sample to be positive sample
 	Predict(sample *core.Sample) float64
 
-	SaveModel(path string)
-	LoadModel(path string)
+	SaveModel(path string) error
+	LoadModel(path string) error
 }
 
 type MultiClassClassifier interface {
@@ -29,6 +29,6 @@ type MultiClassClassifier interface {
 	//Predict the probability of a sample to be positive sample
 	PredictMultiClass(sample *core.Sample) *core.ArrayVector
 
-	SaveModel(path string)
-	LoadModel(path string)
+	SaveModel(path string) error
+	LoadModel(path string) error
 }

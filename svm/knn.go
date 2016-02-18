@@ -1,11 +1,13 @@
 package svm
 
 import (
-	"github.com/xlvector/hector/core"
-	"github.com/xlvector/hector/eval"
+	"fmt"
 	"math"
 	"math/rand"
 	"strconv"
+
+	"github.com/xlvector/hector/core"
+	"github.com/xlvector/hector/eval"
 )
 
 type KNN struct {
@@ -14,12 +16,13 @@ type KNN struct {
 	k      int
 }
 
-func (self *KNN) SaveModel(path string) {
+func (self *KNN) SaveModel(path string) error {
+	return fmt.Errorf("SaveModel not implemented")
 
 }
 
-func (self *KNN) LoadModel(path string) {
-
+func (self *KNN) LoadModel(path string) error {
+	return fmt.Errorf("LoadModel not implemented")
 }
 
 func (c *KNN) Init(params map[string]string) {

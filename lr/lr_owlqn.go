@@ -2,12 +2,14 @@ package lr
 
 import (
 	"bufio"
-	"github.com/xlvector/hector/core"
-	"github.com/xlvector/hector/util"
+	"fmt"
 	"math"
 	"os"
 	"strconv"
 	"strings"
+
+	"github.com/xlvector/hector/core"
+	"github.com/xlvector/hector/util"
 )
 
 type LROWLQNParams struct {
@@ -24,7 +26,7 @@ type LROWLQN struct {
 	lastGrad *core.Vector
 }
 
-func (lr *LROWLQN) SaveModel(path string) {
+func (lr *LROWLQN) SaveModel(path string) error {
 	sb := util.StringBuilder{}
 	for key, val := range lr.Model.Data {
 		sb.Int64(key)
@@ -32,11 +34,18 @@ func (lr *LROWLQN) SaveModel(path string) {
 		sb.Float(val)
 		sb.Write("\n")
 	}
-	sb.WriteToFile(path)
+	err := sb.WriteToFile(path)
+	if err != nil {
+		return fmt.Errorf("Error saving model: %v", err)
+	}
+	return nil
 }
 
-func (lr *LROWLQN) LoadModel(path string) {
-	file, _ := os.Open(path)
+func (lr *LROWLQN) LoadModel(path string) error {
+	file, err := os.Open(path)
+	if err != nil {
+		return fmt.Errorf("Error loading model: %v", err)
+	}
 	defer file.Close()
 
 	scaner := bufio.NewScanner(file)
@@ -47,6 +56,7 @@ func (lr *LROWLQN) LoadModel(path string) {
 		val, _ := strconv.ParseFloat(tks[1], 64)
 		lr.Model.SetValue(key, val)
 	}
+	return nil
 }
 
 func (lr *LROWLQN) Init(params map[string]string) {

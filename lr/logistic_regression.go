@@ -2,11 +2,13 @@ package lr
 
 import (
 	"bufio"
-	"github.com/xlvector/hector/core"
-	"github.com/xlvector/hector/util"
+	"fmt"
 	"os"
 	"strconv"
 	"strings"
+
+	"github.com/xlvector/hector/core"
+	"github.com/xlvector/hector/util"
 )
 
 type LogisticRegressionParams struct {
@@ -20,7 +22,7 @@ type LogisticRegression struct {
 	Params LogisticRegressionParams
 }
 
-func (algo *LogisticRegression) SaveModel(path string) {
+func (algo *LogisticRegression) SaveModel(path string) error {
 	sb := util.StringBuilder{}
 	for f, g := range algo.Model {
 		sb.Int64(f)
@@ -28,11 +30,18 @@ func (algo *LogisticRegression) SaveModel(path string) {
 		sb.Float(g)
 		sb.Write("\n")
 	}
-	sb.WriteToFile(path)
+	err := sb.WriteToFile(path)
+	if err != nil {
+		return fmt.Errorf("Error saving model: %v", err)
+	}
+	return nil
 }
 
-func (algo *LogisticRegression) LoadModel(path string) {
-	file, _ := os.Open(path)
+func (algo *LogisticRegression) LoadModel(path string) error {
+	file, err := os.Open(path)
+	if err != nil {
+		return fmt.Errorf("Error loading model: %v", err)
+	}
 	defer file.Close()
 
 	scaner := bufio.NewScanner(file)
@@ -43,6 +52,7 @@ func (algo *LogisticRegression) LoadModel(path string) {
 		fw, _ := strconv.ParseFloat(tks[1], 64)
 		algo.Model[fid] = fw
 	}
+	return nil
 }
 
 func (algo *LogisticRegression) Init(params map[string]string) {

@@ -4,13 +4,14 @@ import (
 	"bufio"
 	"container/list"
 	"fmt"
-	"github.com/xlvector/hector/core"
 	"io/ioutil"
 	"math"
 	"math/rand"
 	"os"
 	"sort"
 	"strconv"
+
+	"github.com/xlvector/hector/core"
 )
 
 /*
@@ -270,12 +271,19 @@ func (dt *CART) PredictMultiClass(sample *core.Sample) *core.ArrayVector {
 	return node.prediction
 }
 
-func (self *CART) SaveModel(path string) {
-	ioutil.WriteFile(path, self.tree.ToString(), 0600)
+func (self *CART) SaveModel(path string) error {
+	err := ioutil.WriteFile(path, self.tree.ToString(), 0600)
+	if err != nil {
+		return fmt.Errorf("Error saving model: %v", err)
+	}
+	return nil
 }
 
-func (self *CART) LoadModel(path string) {
-	file, _ := os.Open(path)
+func (self *CART) LoadModel(path string) error {
+	file, err := os.Open(path)
+	if err != nil {
+		return fmt.Errorf("Error loading model: %v", err)
+	}
 	defer file.Close()
 	text := ""
 	scanner := bufio.NewScanner(file)
@@ -283,6 +291,8 @@ func (self *CART) LoadModel(path string) {
 		text += scanner.Text() + "\n"
 	}
 	self.tree.FromString(string(text))
+
+	return nil
 }
 
 type CARTParams struct {

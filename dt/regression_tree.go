@@ -3,11 +3,13 @@ package dt
 import (
 	"bufio"
 	"container/list"
-	"github.com/xlvector/hector/core"
+	"fmt"
 	"io/ioutil"
 	"os"
 	"sort"
 	"strconv"
+
+	"github.com/xlvector/hector/core"
 )
 
 type RegressionTree struct {
@@ -15,12 +17,19 @@ type RegressionTree struct {
 	params CARTParams
 }
 
-func (self *RegressionTree) SaveModel(path string) {
-	ioutil.WriteFile(path, self.tree.ToString(), 0600)
+func (self *RegressionTree) SaveModel(path string) error {
+	err := ioutil.WriteFile(path, self.tree.ToString(), 0600)
+	if err != nil {
+		return fmt.Errorf("Error saving model: %v", err)
+	}
+	return nil
 }
 
-func (self *RegressionTree) LoadModel(path string) {
-	file, _ := os.Open(path)
+func (self *RegressionTree) LoadModel(path string) error {
+	file, err := os.Open(path)
+	if err != nil {
+		return fmt.Errorf("Error loading model: %v", err)
+	}
 	defer file.Close()
 	text := ""
 	scanner := bufio.NewScanner(file)
@@ -28,6 +37,7 @@ func (self *RegressionTree) LoadModel(path string) {
 		text += scanner.Text() + "\n"
 	}
 	self.tree.FromString(string(text))
+	return nil
 }
 
 func (dt *RegressionTree) GoLeft(sample *core.MapBasedSample, feature_split core.Feature) bool {

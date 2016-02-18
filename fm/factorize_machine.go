@@ -1,9 +1,11 @@
 package fm
 
 import (
+	"fmt"
+	"strconv"
+
 	"github.com/xlvector/hector/core"
 	"github.com/xlvector/hector/util"
-	"strconv"
 )
 
 type FactorizeMachine struct {
@@ -18,12 +20,12 @@ type FactorizeMachineParams struct {
 	FactorNumber   int
 }
 
-func (self *FactorizeMachine) SaveModel(path string) {
-
+func (self *FactorizeMachine) SaveModel(path string) error {
+	return fmt.Errorf("SaveModel not implemented")
 }
 
-func (self *FactorizeMachine) LoadModel(path string) {
-
+func (self *FactorizeMachine) LoadModel(path string) error {
+	return fmt.Errorf("LoadModel not implemented")
 }
 
 func (c *FactorizeMachine) Predict(sample *core.Sample) float64 {

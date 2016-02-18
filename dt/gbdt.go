@@ -3,10 +3,11 @@ package dt
 import (
 	"bufio"
 	"fmt"
-	"github.com/xlvector/hector/core"
 	"math"
 	"os"
 	"strconv"
+
+	"github.com/xlvector/hector/core"
 )
 
 type GBDT struct {
@@ -15,18 +16,26 @@ type GBDT struct {
 	shrink     float64
 }
 
-func (self *GBDT) SaveModel(path string) {
-	file, _ := os.Create(path)
+func (self *GBDT) SaveModel(path string) error {
+	file, err := os.Create(path)
+	if err != nil {
+		return fmt.Errorf("Error saving model: %v", err)
+	}
+
 	defer file.Close()
 	for _, dt := range self.dts {
 		buf := dt.tree.ToString()
 		file.Write(buf)
 		file.WriteString("\n#\n")
 	}
+	return nil
 }
 
-func (self *GBDT) LoadModel(path string) {
-	file, _ := os.Open(path)
+func (self *GBDT) LoadModel(path string) error {
+	file, err := os.Open(path)
+	if err != nil {
+		return fmt.Errorf("Error loading model: %v", err)
+	}
 	defer file.Close()
 
 	self.dts = []*RegressionTree{}
@@ -44,6 +53,8 @@ func (self *GBDT) LoadModel(path string) {
 			text += line + "\n"
 		}
 	}
+
+	return nil
 }
 
 func (c *GBDT) Init(params map[string]string) {

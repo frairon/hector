@@ -2,12 +2,14 @@ package lr
 
 import (
 	"bufio"
-	"github.com/xlvector/hector/core"
-	"github.com/xlvector/hector/util"
+	"fmt"
 	"math"
 	"os"
 	"strconv"
 	"strings"
+
+	"github.com/xlvector/hector/core"
+	"github.com/xlvector/hector/util"
 )
 
 type FTRLLogisticRegressionParams struct {
@@ -32,7 +34,7 @@ type FTRLLogisticRegression struct {
 	Params FTRLLogisticRegressionParams
 }
 
-func (algo *FTRLLogisticRegression) SaveModel(path string) {
+func (algo *FTRLLogisticRegression) SaveModel(path string) error {
 	sb := util.StringBuilder{}
 	for f, g := range algo.Model {
 		sb.Int64(f)
@@ -42,11 +44,18 @@ func (algo *FTRLLogisticRegression) SaveModel(path string) {
 		sb.Float(g.zi)
 		sb.Write("\n")
 	}
-	sb.WriteToFile(path)
+	err := sb.WriteToFile(path)
+	if err != nil {
+		return fmt.Errorf("Error saving model: %v", err)
+	}
+	return nil
 }
 
-func (algo *FTRLLogisticRegression) LoadModel(path string) {
-	file, _ := os.Open(path)
+func (algo *FTRLLogisticRegression) LoadModel(path string) error {
+	file, err := os.Open(path)
+	if err != nil {
+		return fmt.Errorf("Error loading model: %v", err)
+	}
 	defer file.Close()
 
 	scaner := bufio.NewScanner(file)
@@ -59,6 +68,7 @@ func (algo *FTRLLogisticRegression) LoadModel(path string) {
 		g := FTRLFeatureWeight{ni: ni, zi: zi}
 		algo.Model[fid] = g
 	}
+	return nil
 }
 
 func (algo *FTRLLogisticRegression) Predict(sample *core.Sample) float64 {

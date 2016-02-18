@@ -2,10 +2,11 @@ package svm
 
 import (
 	"fmt"
-	"github.com/xlvector/hector/core"
 	"math"
 	"math/rand"
 	"strconv"
+
+	"github.com/xlvector/hector/core"
 )
 
 type SVM struct {
@@ -20,12 +21,13 @@ type SVM struct {
 	xx []float64
 }
 
-func (self *SVM) SaveModel(path string) {
+func (self *SVM) SaveModel(path string) error {
 
+	return fmt.Errorf("SaveModel not implemented")
 }
 
-func (self *SVM) LoadModel(path string) {
-
+func (self *SVM) LoadModel(path string) error {
+	return fmt.Errorf("LoadModel not implemented")
 }
 
 type SVMValues struct {

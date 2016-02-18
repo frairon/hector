@@ -3,14 +3,15 @@ package svm
 import (
 	"bufio"
 	"fmt"
-	"github.com/xlvector/hector/core"
-	"github.com/xlvector/hector/util"
 	"math"
 	"math/rand"
 	"os"
 	"runtime"
 	"strconv"
 	"strings"
+
+	"github.com/xlvector/hector/core"
+	"github.com/xlvector/hector/util"
 )
 
 /*
@@ -29,7 +30,7 @@ type LinearSVM struct {
 	xx []float64
 }
 
-func (self *LinearSVM) SaveModel(path string) {
+func (self *LinearSVM) SaveModel(path string) error {
 	sb := util.StringBuilder{}
 	for f, g := range self.w.Data {
 		sb.Int64(f)
@@ -37,11 +38,18 @@ func (self *LinearSVM) SaveModel(path string) {
 		sb.Float(g)
 		sb.Write("\n")
 	}
-	sb.WriteToFile(path)
+	err := sb.WriteToFile(path)
+	if err != nil {
+		return fmt.Errorf("Error saving model: %v", err)
+	}
+	return nil
 }
 
-func (self *LinearSVM) LoadModel(path string) {
-	file, _ := os.Open(path)
+func (self *LinearSVM) LoadModel(path string) error {
+	file, err := os.Open(path)
+	if err != nil {
+		return fmt.Errorf("Error loading model: %v", err)
+	}
 	defer file.Close()
 
 	scaner := bufio.NewScanner(file)
@@ -52,6 +60,7 @@ func (self *LinearSVM) LoadModel(path string) {
 		fw, _ := strconv.ParseFloat(tks[1], 64)
 		self.w.SetValue(fid, fw)
 	}
+	return nil
 }
 
 func (c *LinearSVM) Init(params map[string]string) {

@@ -2,12 +2,14 @@ package lr
 
 import (
 	"bufio"
-	"github.com/xlvector/hector/core"
-	"github.com/xlvector/hector/util"
+	"fmt"
 	"math"
 	"os"
 	"strconv"
 	"strings"
+
+	"github.com/xlvector/hector/core"
+	"github.com/xlvector/hector/util"
 )
 
 type EPLogisticRegressionParams struct {
@@ -19,7 +21,7 @@ type EPLogisticRegression struct {
 	params EPLogisticRegressionParams
 }
 
-func (algo *EPLogisticRegression) SaveModel(path string) {
+func (algo *EPLogisticRegression) SaveModel(path string) error {
 	sb := util.StringBuilder{}
 	for f, g := range algo.Model {
 		sb.Int64(f)
@@ -29,11 +31,18 @@ func (algo *EPLogisticRegression) SaveModel(path string) {
 		sb.Float(g.Vari)
 		sb.Write("\n")
 	}
-	sb.WriteToFile(path)
+	err := sb.WriteToFile(path)
+	if err != nil {
+		return fmt.Errorf("Error saving model: %v", err)
+	}
+	return nil
 }
 
-func (algo *EPLogisticRegression) LoadModel(path string) {
-	file, _ := os.Open(path)
+func (algo *EPLogisticRegression) LoadModel(path string) error {
+	file, err := os.Open(path)
+	if err != nil {
+		return fmt.Errorf("Error loading model: %v", err)
+	}
 	defer file.Close()
 
 	scaner := bufio.NewScanner(file)
@@ -46,6 +55,7 @@ func (algo *EPLogisticRegression) LoadModel(path string) {
 		g := util.Gaussian{Mean: mean, Vari: vari}
 		algo.Model[fid] = &g
 	}
+	return nil
 }
 
 func (algo *EPLogisticRegression) Predict(sample *core.Sample) float64 {

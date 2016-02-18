@@ -1,11 +1,13 @@
 package svm
 
 import (
-	"github.com/xlvector/hector/core"
-	"github.com/xlvector/hector/lr"
+	"fmt"
 	"math"
 	"math/rand"
 	"strconv"
+
+	"github.com/xlvector/hector/core"
+	"github.com/xlvector/hector/lr"
 )
 
 func Distance(x, y *core.Vector) float64 {
@@ -28,12 +30,12 @@ type L1VM struct {
 	count  int
 }
 
-func (self *L1VM) SaveModel(path string) {
-
+func (self *L1VM) SaveModel(path string) error {
+	return fmt.Errorf("SaveModel not implemented")
 }
 
-func (self *L1VM) LoadModel(path string) {
-
+func (self *L1VM) LoadModel(path string) error {
+	return fmt.Errorf("LoadModel not implemented")
 }
 
 func (c *L1VM) Init(params map[string]string) {

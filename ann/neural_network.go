@@ -2,11 +2,12 @@ package ann
 
 import (
 	"fmt"
-	"github.com/xlvector/hector/core"
-	"github.com/xlvector/hector/util"
 	"math"
 	"math/rand"
 	"strconv"
+
+	"github.com/xlvector/hector/core"
+	"github.com/xlvector/hector/util"
 )
 
 type NeuralNetworkParams struct {
@@ -42,12 +43,12 @@ func RandomInitVector(dim int64) *core.Vector {
 	return v
 }
 
-func (self *NeuralNetwork) SaveModel(path string) {
-
+func (self *NeuralNetwork) SaveModel(path string) error {
+	return fmt.Errorf("SaveModel not implemented")
 }
 
-func (self *NeuralNetwork) LoadModel(path string) {
-
+func (self *NeuralNetwork) LoadModel(path string) error {
+	return fmt.Errorf("LoadModel not implemented")
 }
 
 func (algo *NeuralNetwork) Init(params map[string]string) {

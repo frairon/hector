@@ -3,12 +3,13 @@ package dt
 import (
 	"container/list"
 	"fmt"
-	"github.com/xlvector/hector/core"
-	"github.com/xlvector/hector/util"
 	"math/rand"
 	"strconv"
 	"strings"
 	"sync"
+
+	"github.com/xlvector/hector/core"
+	"github.com/xlvector/hector/util"
 )
 
 type TreeNode struct {
@@ -103,12 +104,12 @@ type RandomDecisionTree struct {
 	params RDTParams
 }
 
-func (self *RandomDecisionTree) SaveModel(path string) {
-
+func (self *RandomDecisionTree) SaveModel(path string) error {
+	return fmt.Errorf("SaveModel not implemented")
 }
 
-func (self *RandomDecisionTree) LoadModel(path string) {
-
+func (self *RandomDecisionTree) LoadModel(path string) error {
+	return fmt.Errorf("LoadModel not implemented")
 }
 
 func (rdt *RandomDecisionTree) AppendNodeToTree(samples []*core.MapBasedSample, node *TreeNode, queue *list.List, tree *Tree) {
