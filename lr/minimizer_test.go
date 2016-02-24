@@ -1,7 +1,7 @@
 package lr
 
 import (
-	"github.com/xlvector/hector/core"
+	"github.com/frairon/hector/core"
 	"math"
 	"testing"
 )

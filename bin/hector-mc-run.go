@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/xlvector/hector"
+	"github.com/frairon/hector"
 	"log"
 	"os"
 	"runtime/pprof"

@@ -4,4 +4,4 @@ go:
     - 1.4.1
 
 install:
-    - go test github.com/xlvector/hector
+    - go test github.com/frairon/hector

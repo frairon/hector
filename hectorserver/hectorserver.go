@@ -3,10 +3,10 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/xlvector/hector"
-	"github.com/xlvector/hector/algo"
-	"github.com/xlvector/hector/core"
-	"github.com/xlvector/hector/util"
+	"github.com/frairon/hector"
+	"github.com/frairon/hector/algo"
+	"github.com/frairon/hector/core"
+	"github.com/frairon/hector/util"
 	"log"
 	"net/http"
 )

@@ -1,9 +1,9 @@
 package main
 
 import (
-	"github.com/xlvector/hector"
-	"github.com/xlvector/hector/combine"
-	"github.com/xlvector/hector/core"
+	"github.com/frairon/hector"
+	"github.com/frairon/hector/combine"
+	"github.com/frairon/hector/core"
 	"os"
 	"strings"
 )

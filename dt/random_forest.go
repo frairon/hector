@@ -8,7 +8,7 @@ import (
 	"strconv"
 	"sync"
 
-	"github.com/xlvector/hector/core"
+	"github.com/frairon/hector/core"
 )
 
 type RandomForestParams struct {

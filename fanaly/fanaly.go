@@ -3,7 +3,7 @@ package main
 import (
 	"flag"
 	"fmt"
-	"github.com/xlvector/hector/core"
+	"github.com/frairon/hector/core"
 	"sort"
 )
 

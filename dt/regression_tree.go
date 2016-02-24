@@ -9,7 +9,7 @@ import (
 	"sort"
 	"strconv"
 
-	"github.com/xlvector/hector/core"
+	"github.com/frairon/hector/core"
 )
 
 type RegressionTree struct {

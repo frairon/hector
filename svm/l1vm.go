@@ -6,8 +6,8 @@ import (
 	"math/rand"
 	"strconv"
 
-	"github.com/xlvector/hector/core"
-	"github.com/xlvector/hector/lr"
+	"github.com/frairon/hector/core"
+	"github.com/frairon/hector/lr"
 )
 
 func Distance(x, y *core.Vector) float64 {

@@ -1,7 +1,7 @@
 package algo
 
 import (
-	"github.com/xlvector/hector/core"
+	"github.com/frairon/hector/core"
 )
 
 type Clustering interface {

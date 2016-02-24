@@ -25,8 +25,8 @@ Hector support libsvm-like data format. Following is an sample dataset
 
 hector-cv.go will help you test one algorithm by cross validation in some dataset, you can run it by following steps:
 
-	go get github.com/xlvector/hector
-	go install github.com/xlvector/hector/hectorcv
+	go get github.com/frairon/hector
+	go install github.com/frairon/hector/hectorcv
 	hectorcv --method [Method] --train [Data Path] --cv 10
 
 Here, Method include

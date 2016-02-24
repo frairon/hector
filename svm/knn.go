@@ -6,8 +6,8 @@ import (
 	"math/rand"
 	"strconv"
 
-	"github.com/xlvector/hector/core"
-	"github.com/xlvector/hector/eval"
+	"github.com/frairon/hector/core"
+	"github.com/frairon/hector/eval"
 )
 
 type KNN struct {

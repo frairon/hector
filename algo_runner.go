@@ -9,9 +9,9 @@ Currently, it only support algorithms which can solve binary classification prob
 package hector
 
 import (
-	"github.com/xlvector/hector/algo"
-	"github.com/xlvector/hector/core"
-	"github.com/xlvector/hector/eval"
+	"github.com/frairon/hector/algo"
+	"github.com/frairon/hector/core"
+	"github.com/frairon/hector/eval"
 	"os"
 	"strconv"
 )

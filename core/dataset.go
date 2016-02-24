@@ -2,7 +2,7 @@ package core
 
 import (
 	"bufio"
-	"github.com/xlvector/hector/util"
+	"github.com/frairon/hector/util"
 	"log"
 	"os"
 	"sort"

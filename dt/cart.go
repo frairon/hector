@@ -11,7 +11,7 @@ import (
 	"sort"
 	"strconv"
 
-	"github.com/xlvector/hector/core"
+	"github.com/frairon/hector/core"
 )
 
 /*
@@ -217,14 +217,14 @@ func PredictBySingleTree(tree *Tree, sample *core.MapBasedSample) (*TreeNode, st
 		if DTGoLeft(sample, node.feature_split) {
 			if node.left >= 0 && node.left < tree.Size() {
 				node = tree.GetNode(node.left)
-				path += "-" + node.ToString()
+				path += "-|" + node.ToString()
 			} else {
 				break
 			}
 		} else {
 			if node.right >= 0 && node.right < tree.Size() {
 				node = tree.GetNode(node.right)
-				path += "+" + node.ToString()
+				path += "+|" + node.ToString()
 			} else {
 				break
 			}
@@ -263,6 +263,12 @@ func (dt *CART) Predict(sample *core.Sample) float64 {
 	msample := sample.ToMapBasedSample()
 	node, _ := PredictBySingleTree(&dt.tree, msample)
 	return node.prediction.GetValue(1)
+}
+
+func (dt *CART) PredictWithPath(sample *core.Sample) (float64, string) {
+	msample := sample.ToMapBasedSample()
+	node, path := PredictBySingleTree(&dt.tree, msample)
+	return node.prediction.GetValue(1), path
 }
 
 func (dt *CART) PredictMultiClass(sample *core.Sample) *core.ArrayVector {

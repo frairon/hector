@@ -10,8 +10,8 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/xlvector/hector/core"
-	"github.com/xlvector/hector/util"
+	"github.com/frairon/hector/core"
+	"github.com/frairon/hector/util"
 )
 
 /*
